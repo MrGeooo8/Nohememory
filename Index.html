@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Helen ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #ff9a9e;
+            --accent-color: #fad0c4;
+            --text-color: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at top right, #2c3e50, #000000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+        }
+
+        /* Estrellas animadas de fondo */
+        .stars-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Luna con brillo suave */
+        .moon {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            width: 100px;
+            height: 100px;
+            background: #fefcd7;
+            border-radius: 50%;
+            box-shadow: 0 0 40px 10px rgba(254, 252, 215, 0.3);
+            z-index: 1;
+        }
+
+        /* Contenedor principal estilo Glassmorphism */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 85%;
+            max-width: 500px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .content-area {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            display: none;
+        }
+
+        p.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botón elegante */
+        .btn-next {
+            margin-top: 30px;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+        }
+
+        .btn-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.6);
+        }
+
+        .btn-next:disabled {
+            display: none;
+        }
+
+        /* Estrellas pequeñas */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: blink 3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Flores/Pétalos cayendo */
+        .petal {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            pointer-events: none;
+            z-index: 15;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars-container" id="stars"></div>
+    <div class="moon"></div>
+
+    <div class="card">
+        <h1>Helen 🌙</h1>
+        
+        <div class="content-area">
+            <p id="t0" class="active">
+                Bajo esta luna que brilla fuerte… pensé en tus ojos. <br>
+                Porque tienen esa misma luz tranquila que ilumina sin hacer ruido.
+            </p>
+            <p id="t1">
+                Sé que a veces te haces la complicada… <br>
+                pero también sé que lo valioso no se entrega fácil. <br>
+                Y yo estoy dispuesto a hacer las cosas bien.
+            </p>
+            <p id="t2">
+                No quiero ser alguien que pase por tu vida y deje un recuerdo gris. <br>
+                Si algún día piensas en mí, quiero que sea con paz, con respeto y una sonrisa sincera.
+            </p>
+            <p id="t3">
+                Y si Dios permite que nuestros caminos coincidan un poco más… prometo cuidar esa oportunidad. <br>
+                Porque cuando algo llega con intención limpia, merece un corazón limpio.
+            </p>
+            <p id="t4">
+                No te prometo perfección… pero sí intención real, respeto verdadero y la mejor versión de mí. <br><br>
+                <span style="font-size: 2rem;">❤️</span>
+            </p>
+        </div>
+
+        <button class="btn-next" id="nextBtn" onclick="showNext()">Continuar 💌</button>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 4;
+
+        function showNext() {
+            const currentText = document.getElementById(`t${currentStep}`);
+            currentText.classList.remove('active');
+            
+            // Esperar un poquito para que el cambio no sea brusco
+            setTimeout(() => {
+                currentText.style.display = 'none';
+                currentStep++;
+                
+                const nextText = document.getElementById(`t${currentStep}`);
+                nextText.style.display = 'block';
+                
+                // Forzar reflujo para la animación
+                setTimeout(() => {
+                    nextText.classList.add('active');
+                }, 50);
+
+                if (currentStep === totalSteps) {
+                    document.getElementById('nextBtn').style.display = 'none';
+                    startPetals();
+                }
+            }, 400);
+        }
+
+        // Crear estrellas de fondo
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                container.appendChild(star);
+            }
+        }
+
+        // Lluvia de flores al final
+        function startPetals() {
+            const emojis = ['🌸', '✨', '🤍', '✿'];
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.fontSize = Math.random() * (25 - 15) + 15 + 'px';
+                petal.style.animationDuration = Math.random() * (6 - 3) + 3 + 's';
+                document.body.appendChild(petal);
+
+                setTimeout(() => petal.remove(), 6000);
+            }, 300);
+        }
+
+        createStars();
+    </script>
+</body>
+</html>
