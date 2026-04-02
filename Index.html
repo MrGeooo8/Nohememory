@@ -1,221 +1,300 @@
-
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Nohemí ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet"><style>
-    :root {
-        --primary-color: #ff9a9e;
-        --accent-color: #fad0c4;
-        --text-color: #ffffff;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        overflow: hidden;
-        font-family: 'Poppins', sans-serif;
-        background: radial-gradient(circle at top right, #2c3e50, #000000);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: var(--text-color);
-    }
-
-    .stars-container {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-    }
-
-    .moon {
-        position: absolute;
-        top: 50px;
-        right: 50px;
-        width: 100px;
-        height: 100px;
-        background: #fefcd7;
-        border-radius: 50%;
-        box-shadow: 0 0 40px 10px rgba(254, 252, 215, 0.3);
-        z-index: 1;
-    }
-
-    .card {
-        position: relative;
-        z-index: 10;
-        width: 85%;
-        max-width: 500px;
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 30px;
-        text-align: center;
-        box-shadow: 0 25px 45px rgba(0,0,0,0.5);
-    }
-
-    h1 {
-        font-family: 'Dancing Script', cursive;
-        font-size: 3rem;
-        margin-bottom: 20px;
-        color: var(--primary-color);
-    }
-
-    .content-area {
-        min-height: 150px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        margin: 0;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.8s ease;
-        display: none;
-    }
-
-    p.active {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .btn-next {
-        margin-top: 30px;
-        padding: 12px 40px;
-        border: none;
-        border-radius: 50px;
-        background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-        color: white;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
-    }
-
-    .btn-next:hover {
-        transform: scale(1.05);
-    }
-
-    .star {
-        position: absolute;
-        background: white;
-        border-radius: 50%;
-        opacity: 0.5;
-        animation: blink 3s infinite;
-    }
-
-    @keyframes blink {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
-    }
-
-    .petal {
-        position: absolute;
-        top: -10%;
-        pointer-events: none;
-        animation: fall linear forwards;
-    }
-
-    @keyframes fall {
-        to { transform: translateY(110vh) rotate(360deg); }
-    }
-</style>
-
-</head>
-<body><div class="stars-container" id="stars"></div>
-<div class="moon"></div><div class="card">
-    <h1>Nohemí 🌙</h1><div class="content-area">
-    <p id="t0" class="active">
-        Hay personas que no necesitan hablar mucho para llamar la atención…<br>
-        y siento que tu eres una de esas.
-    </p>
-    <p id="t1">
-        No te conozco del todo aún…<br>
-        pero lo poco que he visto, se siente diferente.
-    </p>
-    <p id="t2">
-        No vengo con palabras vacías ni promesas raras…<br>
-        solo con intención tranquila y real.
-    </p>
-    <p id="t3">
-        Sé que no confías fácilmente…<br>
-        y está bien, lo valioso no se entrega a cualquiera.
-    </p>
-    <p id="t4">
-        Pero si algún día me das la oportunidad…<br>
-        me gustaría demostrarte que no todos son iguales.
-        <br><br>
-        <span style="font-size: 2rem;">🤍</span>
-    </p>
-</div>
-
-<button class="btn-next" id="nextBtn" onclick="showNext()">Continuar 💌</button>
-
-</div><script>
-    let currentStep = 0;
-    const totalSteps = 4;
-
-    function showNext() {
-        const currentText = document.getElementById(`t${currentStep}`);
-        currentText.classList.remove('active');
-        
-        setTimeout(() => {
-            currentText.style.display = 'none';
-            currentStep++;
-            
-            const nextText = document.getElementById(`t${currentStep}`);
-            nextText.style.display = 'block';
-            
-            setTimeout(() => {
-                nextText.classList.add('active');
-            }, 50);
-
-            if (currentStep === totalSteps) {
-                document.getElementById('nextBtn').style.display = 'none';
-                startPetals();
-            }
-        }, 400);
-    }
-
-    function createStars() {
-        const container = document.getElementById('stars');
-        for (let i = 0; i < 150; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 3;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 3}s`;
-            container.appendChild(star);
+    <title>El Misterio de Nohemí ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #fccf31;
+            --pink: #f62681;
+            --glass: rgba(255, 255, 255, 0.1);
         }
-    }
 
-    function startPetals() {
-        const emojis = ['🌸', '✨', '🤍', '✿'];
-        setInterval(() => {
-            const petal = document.createElement('div');
-            petal.className = 'petal';
-            petal.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.fontSize = Math.random() * (25 - 15) + 15 + 'px';
-            petal.style.animationDuration = Math.random() * (6 - 3) + 3 + 's';
-            document.body.appendChild(petal);
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-            setTimeout(() => petal.remove(), 6000);
-        }, 300);
-    }
+        body {
+            background: linear-gradient(135deg, #0f172a, #312e81, #581c87, #9d174d);
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            overflow-x: hidden;
+            padding: 15px;
+        }
 
-    createStars();
-</script></body>
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header { 
+            text-align: center; 
+            margin-top: 10px;
+            width: 100%; 
+            max-width: 420px; 
+            z-index: 10;
+        }
+        
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2.8rem; letter-spacing: 1px; }
+
+        .stats { display: flex; justify-content: space-around; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; }
+        .stats b { color: var(--gold); font-size: 1rem; }
+
+        /* TABLERO 3x4 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 420px;
+            width: 100%;
+            perspective: 1200px;
+            z-index: 10;
+        }
+
+        .card {
+            aspect-ratio: 1/1.1;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card.flipped { transform: rotateY(180deg); }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* Frontal Estilo Lujo */
+        .front {
+            background: #fffdf9;
+            box-shadow: inset 0 0 20px rgba(201, 169, 110, 0.2);
+        }
+        .front::before {
+            content: '';
+            width: 60%; height: 60%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c9a96e"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.2;
+        }
+
+        /* Trasera con Brillo */
+        .back {
+            background: white;
+            transform: rotateY(180deg);
+            color: #1e1b4b;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            padding: 5px;
+            box-shadow: 0 0 20px rgba(252, 207, 49, 0);
+            transition: box-shadow 0.5s;
+        }
+
+        .card.matched .back {
+            box-shadow: 0 0 25px var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        /* TEXTO DINÁMICO */
+        #msg-box { min-height: 100px; width: 100%; max-width: 420px; display: flex; align-items: center; justify-content: center; }
+        #msg-text { font-family: 'Dancing Script', cursive; font-size: 1.5rem; text-align: center; line-height: 1.3; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+
+        /* PANTALLA FINAL */
+        #win-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, #2e1065, #000);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 40px;
+            text-align: center;
+        }
+        #win-screen h2 { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--gold); margin-bottom: 20px; }
+        
+        .btn-restart {
+            margin-top: 30px;
+            padding: 15px 40px;
+            border-radius: 50px;
+            border: none;
+            background: white;
+            color: #581c87;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-restart:hover { transform: scale(1.1); background: var(--gold); }
+
+        /* PARTICULAS */
+        .sparkle { position: fixed; background: white; border-radius: 50%; pointer-events: none; animation: fly 5s infinite; opacity: 0; }
+        @keyframes fly { 0% { transform: translateY(100vh); opacity: 0; } 50% { opacity: 0.6; } 100% { transform: translateY(-10vh); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <header class="glass-panel">
+        <h1>Para Nohemí ✨</h1>
+        <div class="stats">
+            <div>Intentos: <b id="tries">0</b></div>
+            <div>Parejas: <b id="matches">0/6</b></div>
+        </div>
+    </header>
+
+    <div class="grid" id="grid"></div>
+
+    <div id="msg-box" class="glass-panel" style="margin-top: 20px;">
+        <p id="msg-text">Toca las cartas para descubrir los mensajes que tengo para ti...</p>
+    </div>
+
+    <div id="win-screen">
+        <h2 id="win-title">¡Increíble!</h2>
+        <p id="win-desc" style="font-size: 1.2rem; font-weight: 300; line-height: 1.6;"></p>
+        <button class="btn-restart" onclick="resetGame()">Jugar de nuevo 🔁</button>
+    </div>
+
+    <script>
+        const pairs = [
+            { txt: 'Destino', desc: 'A veces el destino une a personas que no sabían que se buscaban.' },
+            { txt: 'Suerte', desc: 'Haber coincidido contigo es la casualidad más linda de mis días.' },
+            { txt: 'Sonrisa', desc: 'No imaginas lo mucho que me haces sonreír con solo un mensaje.' },
+            { txt: 'Misterio', desc: 'Me encanta el misterio de ir descubriendo poco a poco quién eres.' },
+            { txt: 'Conexión', desc: 'Aunque no nos hayamos visto aún, siento que te conozco de siempre.' },
+            { txt: 'Magia', desc: 'Hay algo mágico en la forma en que apareciste en mi mundo.' }
+        ];
+
+        let cards = [];
+        let flipped = [];
+        let solved = 0;
+        let attempts = 0;
+        let lock = false;
+
+        function init() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            const deck = [...pairs, ...pairs].sort(() => Math.random() - 0.5);
+            
+            deck.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.val = p.txt;
+                card.dataset.msg = p.desc;
+                card.innerHTML = `
+                    <div class="card-face front"></div>
+                    <div class="card-face back">${p.txt}</div>
+                `;
+                card.onclick = () => flip(card);
+                grid.appendChild(card);
+            });
+            createParticles();
+        }
+
+        function flip(card) {
+            if (lock || card.classList.contains('flipped') || flipped.includes(card)) return;
+            
+            card.classList.add('flipped');
+            flipped.push(card);
+
+            if (flipped.length === 2) {
+                attempts++;
+                document.getElementById('tries').innerText = attempts;
+                check();
+            }
+        }
+
+        function check() {
+            lock = true;
+            const [c1, c2] = flipped;
+            
+            if (c1.dataset.val === c2.dataset.val) {
+                c1.classList.add('matched');
+                c2.classList.add('matched');
+                document.getElementById('msg-text').innerText = c1.dataset.msg;
+                solved++;
+                document.getElementById('matches').innerText = `${solved}/6`;
+                flipped = [];
+                lock = false;
+                if (solved === 6) setTimeout(win, 800);
+            } else {
+                setTimeout(() => {
+                    c1.classList.remove('flipped');
+                    c2.classList.remove('flipped');
+                    flipped = [];
+                    lock = false;
+                }, 1000);
+            }
+        }
+
+        function win() {
+            const desc = document.getElementById('win-desc');
+            const title = document.getElementById('win-title');
+            
+            if (attempts <= 12) {
+                title.innerText = "¡Conexión Real! ✨";
+                desc.innerHTML = `Lo resolviste en solo ${attempts} intentos. <br>Parece que nuestras mentes ya están en sintonía, Nohemí.`;
+            } else {
+                title.innerText = "¡Lo lograste! ❤️";
+                desc.innerHTML = `Completaste el misterio. <br>Ahora solo falta descubrir el mayor secreto: <br><b>¿Me dejas seguir robándote sonrisas?</b>`;
+            }
+            
+            document.getElementById('win-screen').style.display = 'flex';
+        }
+
+        // REINICIAR CORREGIDO
+        function resetGame() {
+            document.getElementById('win-screen').style.display = 'none';
+            solved = 0;
+            attempts = 0;
+            document.getElementById('tries').innerText = '0';
+            document.getElementById('matches').innerText = '0/6';
+            document.getElementById('msg-text').innerText = 'Toca las cartas para descubrir los mensajes que tengo para ti...';
+            init(); // Reinicia el tablero sin recargar toda la página
+        }
+
+        function createParticles() {
+            for (let i = 0; i < 40; i++) {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.style.width = Math.random() * 4 + 'px';
+                s.style.height = s.style.width;
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(s);
+            }
+        }
+
+        init();
+    </script>
+</body>
 </html>
